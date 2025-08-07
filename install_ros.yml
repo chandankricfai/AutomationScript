@@ -32,12 +32,6 @@
         name: ros-noetic-desktop-full
         state: present
 
-    - name: Initialize rosdep
-      command: rosdep init
-      args:
-        creates: /etc/ros/rosdep/sources.list.d/20-default.list
-      ignore_errors: yes
-
     - name: Update rosdep
       command: rosdep update
       environment:
