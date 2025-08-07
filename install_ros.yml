@@ -4,10 +4,13 @@
   become: false
   tasks:
 
+   - name: Ensure python3-apt is installed
+     apt:
+       name: python3-apt
+       state: present
+
        
     - name: Install ROS build tools
       apt:
-        name:
-          - ros-noetic-ros-base
-          
+        name:ros-noetic-ros-base 
         state: present
