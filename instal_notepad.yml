@@ -1,7 +1,7 @@
 ---
 - name: Install Notepad++ via Snap
   hosts: localhost
-  become: true
+  become: false
   tasks:
 
     - name: Ensure snapd is installed
