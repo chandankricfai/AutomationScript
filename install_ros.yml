@@ -1,7 +1,7 @@
 ---
 - name: Install ROS Noetic on Ubuntu 20.04
   hosts: local
-  become: true  # You need root privileges to install packages
+  become: false  # You need root privileges to install packages
   tasks:
 
     - name: Ensure python3-apt is installed
