@@ -37,12 +37,7 @@
       environment:
         ROS_DISTRO: noetic
 
-    - name: Add ROS setup.bash to .bashrc
-      lineinfile:
-        path: /home/{{ ansible_user | default('YOUR_USERNAME') }}/.bashrc
-        line: "source /opt/ros/noetic/setup.bash"
-        state: present
-
+    
     - name: Install ROS build tools
       apt:
         name:
