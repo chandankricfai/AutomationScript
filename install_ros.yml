@@ -8,8 +8,6 @@
     - name: Install ROS build tools
       apt:
         name:
-          - python3-rosinstall
-          - python3-rosinstall-generator
-          - python3-wstool
-          - build-essential
+          - ros-noetic-ros-base
+          
         state: present
