@@ -1,7 +1,7 @@
 ---
 - name: Install ROS Noetic on Ubuntu 20.04
   hosts: local
-  become: true
+  become: false
   tasks:
 
     - name: Ensure /etc/apt/keyrings exists
