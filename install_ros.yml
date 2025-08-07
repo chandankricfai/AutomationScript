@@ -1,17 +1,24 @@
 ---
 - name: Install ROS Noetic on Ubuntu 20.04
   hosts: local
-  become: false
+  become: true
   tasks:
 
-    - name: Add ROS apt repository
-      apt_key:
-        url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
-        state: present
+    - name: Ensure /etc/apt/keyrings exists
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
 
-    - name: Add ROS source list
+    - name: Download ROS GPG key
+      get_url:
+        url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
+        dest: /etc/apt/keyrings/ros-archive-keyring.gpg
+        mode: '0644'
+
+    - name: Add ROS apt repository
       apt_repository:
-        repo: "deb http://packages.ros.org/ros/ubuntu focal main"
+        repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros/ubuntu focal main"
         state: present
         filename: ros-latest
 
@@ -29,7 +36,7 @@
       command: rosdep init
       args:
         creates: /etc/ros/rosdep/sources.list.d/20-default.list
-      ignore_errors: yes  # In case it's already initialized
+      ignore_errors: yes
 
     - name: Update rosdep
       command: rosdep update
@@ -38,10 +45,9 @@
 
     - name: Add ROS setup.bash to .bashrc
       lineinfile:
-        path: /home/{{ ansible_user }}/.bashrc
+        path: /home/{{ ansible_user | default('YOUR_USERNAME') }}/.bashrc
         line: "source /opt/ros/noetic/setup.bash"
         state: present
-      become: false
 
     - name: Install ROS build tools
       apt:
