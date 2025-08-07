@@ -1,0 +1,24 @@
+---
+- name: Install Notepad++ via Snap
+  hosts: localhost
+  become: true
+  tasks:
+
+    - name: Ensure snapd is installed
+      apt:
+        name: snapd
+        state: present
+        update_cache: yes
+
+    - name: Ensure snap service is running (for systems using systemd)
+      service:
+        name: snapd
+        state: started
+        enabled: yes
+      when: ansible_service_mgr == 'systemd'
+
+    - name: Install Notepad++ using snap
+      snap:
+        name: notepad-plus-plus
+        classic: true
+        state: present
