@@ -1,0 +1,7 @@
+---
+- name: Hello World Playbook
+  hosts: local
+  become: false  # Set to true if you want to run as sudo
+  tasks:
+    - name: Print Hello World
+      command: echo "Hello, World!"
