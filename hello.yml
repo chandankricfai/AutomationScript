@@ -1,7 +1,13 @@
 ---
-- name: Hello World Playbook
-  hosts: local
-  become: false  # Set to true if you want to run as sudo
+- name: Create a directory on localhost
+  hosts: localhost
+  become: true
   tasks:
-    - name: Print Hello World
-      command: echo "Hello, World!"
+    - name: Create /opt/myfolder directory
+      file:
+        path: /opt/myfolder
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
