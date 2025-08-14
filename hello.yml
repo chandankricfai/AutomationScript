@@ -1,6 +1,6 @@
 ---
 - name: Create a directory on localhost
-  hosts: localhost
+  hosts: 10.21.235.4
   become: true
   tasks:
     - name: Create /opt/myfolder directory
